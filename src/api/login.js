@@ -14,10 +14,14 @@ router.post("/login", async (req, res) => {
   );
 
   if (!userWithEmail)
-    return res.json({ message: "Email or password does not match!" });
+    return res
+      .status(400)
+      .json({ message: "Email or password does not match!" });
 
   if (userWithEmail.password !== password)
-    return res.json({ message: "Email or password does not match!" });
+    return res
+      .status(400)
+      .json({ message: "Email or password does not match!" });
 
   const jwtToken = jwt.sign(
     { id: userWithEmail.id, email: userWithEmail.email },
